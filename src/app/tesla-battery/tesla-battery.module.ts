@@ -8,6 +8,7 @@ import { TeslaBatteryService } from "./tesla-battery.service";
 
 // Containers
 import { TeslaBatteryComponent } from "./containers/tesla-battery/tesla-battery.component";
+import { TeslaCarComponent } from "./components/tesla-car/tesla-car.component";
 
 /**
  * Created by francesco on 26/12/2016.
@@ -16,7 +17,8 @@ import { TeslaBatteryComponent } from "./containers/tesla-battery/tesla-battery.
 @NgModule({
   declarations: [
     //register containers component
-    TeslaBatteryComponent
+    TeslaBatteryComponent,
+    TeslaCarComponent
   ],
   imports: [
     CommonModule,

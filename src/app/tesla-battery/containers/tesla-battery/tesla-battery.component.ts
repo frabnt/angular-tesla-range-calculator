@@ -2,13 +2,14 @@
  * Created by francesco on 26/12/2016.
  */
 import { Component, OnInit } from "@angular/core";
-import {FormGroup, FormBuilder} from "@angular/forms";
+import { FormGroup, FormBuilder } from "@angular/forms";
 
 @Component({
   selector: 'tesla-battery',
   template: `
-    <form class="tesla-battery" formGroup="tesla">
-      <h1>{{title}}</h1>
+    <form class="tesla-battery" [formGroup]="tesla">
+      <h1>{{ title }}</h1>
+      <tesla-car [wheelsize]="tesla.get('config.wheels').value"></tesla-car>
       <div class="tesla-battery__notice">
         <p>
           The actual amount of range that you experience will vary based 
@@ -26,10 +27,12 @@ import {FormGroup, FormBuilder} from "@angular/forms";
   styleUrls: ['./tesla-battery.component.scss']
 })
 export class TeslaBatteryComponent implements OnInit {
-  title: string = 'Rage per charge';
+  title: string = 'Range per charge';
   tesla: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) {
+
+  }
 
   ngOnInit() {
     this.tesla = this.fb.group({
@@ -40,5 +43,6 @@ export class TeslaBatteryComponent implements OnInit {
         wheels: 19
       })
     });
+    console.log(this.tesla.get('config.wheels').value);
   }
 }
