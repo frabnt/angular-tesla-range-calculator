@@ -31,7 +31,12 @@ import {Stats} from "../../models/stats.interface";
             [max]="40"
             formControlName="temperature">
           </tesla-counter>
+          <tesla-climate 
+            [limit]="tesla.get('config.temperature').value > 10" 
+            formControlName="climate">
+          </tesla-climate>
         </div>
+        <tesla-wheels formControlName="wheels"></tesla-wheels>
       </div>
       <div class="tesla-battery__notice">
         <p>
@@ -72,6 +77,10 @@ export class TeslaBatteryComponent implements OnInit {
 
     this.models = this.batteryService.getModelData();
     this.stats = this.calculateStats(this.results, this.tesla.controls['config'].value);
+
+    this.tesla.controls['config'].valueChanges.subscribe(data => {
+      this.stats = this.calculateStats(this.results, data);
+    });
   }
 
   private calculateStats(models, value): Stats[] {
