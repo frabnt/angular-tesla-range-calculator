@@ -9,6 +9,7 @@ import { TeslaBatteryService } from "./tesla-battery.service";
 // Containers
 import { TeslaBatteryComponent } from "./containers/tesla-battery/tesla-battery.component";
 import { TeslaCarComponent } from "./components/tesla-car/tesla-car.component";
+import { TeslaStatsComponent } from "./components/tesla-stats/tesla-stats.component";
 
 /**
  * Created by francesco on 26/12/2016.
@@ -18,7 +19,8 @@ import { TeslaCarComponent } from "./components/tesla-car/tesla-car.component";
   declarations: [
     //register containers component
     TeslaBatteryComponent,
-    TeslaCarComponent
+    TeslaCarComponent,
+    TeslaStatsComponent
   ],
   imports: [
     CommonModule,

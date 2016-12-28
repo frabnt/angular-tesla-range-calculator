@@ -3,6 +3,8 @@
  */
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder } from "@angular/forms";
+import {TeslaBatteryService} from "../../tesla-battery.service";
+import {Stats} from "../../models/stats.interface";
 
 @Component({
   selector: 'tesla-battery',
@@ -10,6 +12,7 @@ import { FormGroup, FormBuilder } from "@angular/forms";
     <form class="tesla-battery" [formGroup]="tesla">
       <h1>{{ title }}</h1>
       <tesla-car [wheelsize]="tesla.get('config.wheels').value"></tesla-car>
+      <tesla-stats [stats]="stats"></tesla-stats>
       <div class="tesla-battery__notice">
         <p>
           The actual amount of range that you experience will vary based 
@@ -28,11 +31,14 @@ import { FormGroup, FormBuilder } from "@angular/forms";
 })
 export class TeslaBatteryComponent implements OnInit {
   title: string = 'Range per charge';
+  models: any;
+  stats: Stats[];
   tesla: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  private results: Array<String> = ['60', '60D', '75', '75D', '90D', 'P100D'];
 
-  }
+  constructor(private fb: FormBuilder,
+              private batteryService: TeslaBatteryService) { }
 
   ngOnInit() {
     this.tesla = this.fb.group({
@@ -43,6 +49,19 @@ export class TeslaBatteryComponent implements OnInit {
         wheels: 19
       })
     });
-    console.log(this.tesla.get('config.wheels').value);
+
+    this.models = this.batteryService.getModelData();
+    this.stats = this.calculateStats(this.results, this.tesla.controls['config'].value);
+  }
+
+  private calculateStats(models, value): Stats[] {
+    return models.map(model => {
+      const { speed, temperature, climate, wheels } = value;
+      const miles = this.models[model][wheels][climate ? 'on' : 'off'].speed[speed][temperature];
+      return {
+        model,
+        miles
+      };
+    });
   }
 }
