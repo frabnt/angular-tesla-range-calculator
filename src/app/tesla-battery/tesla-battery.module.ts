@@ -8,8 +8,11 @@ import { TeslaBatteryService } from "./tesla-battery.service";
 
 // Containers
 import { TeslaBatteryComponent } from "./containers/tesla-battery/tesla-battery.component";
+
+// Components
 import { TeslaCarComponent } from "./components/tesla-car/tesla-car.component";
 import { TeslaStatsComponent } from "./components/tesla-stats/tesla-stats.component";
+import { TeslaCounterComponent } from "./components/tesla-counter/tesla-counter.component";
 
 /**
  * Created by francesco on 26/12/2016.
@@ -20,7 +23,8 @@ import { TeslaStatsComponent } from "./components/tesla-stats/tesla-stats.compon
     //register containers component
     TeslaBatteryComponent,
     TeslaCarComponent,
-    TeslaStatsComponent
+    TeslaStatsComponent,
+    TeslaCounterComponent
   ],
   imports: [
     CommonModule,
